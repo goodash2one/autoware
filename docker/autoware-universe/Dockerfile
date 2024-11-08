@@ -37,6 +37,13 @@ RUN --mount=type=ssh \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+#### package 'angles' header path fix in 'nebula_decoders'
+RUN sed -i "18s/angles\/angles\/angles.h/angles\/angles.h/" \
+src/sensor_component/external/nebula/nebula_decoders/include/nebula_decoders/nebula_decoders_velodyne/decoders/velodyne_scan_decoder.hpp
+#### package 'multi_object_tracker' dependency fix (diagnostic_updater)
+RUN sed -i "27i \ \ <depend>diagnostic_updater</depend>" \
+src/universe/autoware.universe/perception/multi_object_tracker/package.xml
+
 ## Clean up unnecessary files
 RUN rm -rf \
   "$HOME"/.cache \
