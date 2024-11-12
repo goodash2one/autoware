@@ -81,8 +81,11 @@ CMD ["/bin/bash"]
 FROM devel as builder
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+#### edit environment variable for CUDA
 ## Build and change permission for runtime data conversion
-RUN source /opt/ros/"$ROS_DISTRO"/setup.bash \
+RUN export PATH="/usr/local/cuda/bin:$PATH" \
+  && export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH" \
+  && source /opt/ros/"$ROS_DISTRO"/setup.bash \
   && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release \
   && find /autoware/install -type d -exec chmod 777 {} \;
 
