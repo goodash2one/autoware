@@ -43,6 +43,9 @@ src/sensor_component/external/nebula/nebula_decoders/include/nebula_decoders/neb
 #### package 'multi_object_tracker' dependency fix (diagnostic_updater)
 RUN sed -i "27i \ \ <depend>diagnostic_updater</depend>" \
 src/universe/autoware.universe/perception/multi_object_tracker/package.xml
+#### topic name fix in launch script
+RUN sed -i "6s/sensing\/lidar\/top\/pointcloud/sensing\/lidar\/top\/pointcloud_raw/" \
+src/launcher/autoware_launch/autoware_launch/launch/components/tier4_localization_component.launch.xml
 
 ## Clean up unnecessary files
 RUN rm -rf \
