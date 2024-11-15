@@ -46,6 +46,11 @@ src/universe/autoware.universe/perception/multi_object_tracker/package.xml
 #### topic name fix in launch script
 RUN sed -i "6s/sensing\/lidar\/top\/pointcloud/sensing\/lidar\/top\/pointcloud_raw/" \
 src/launcher/autoware_launch/autoware_launch/launch/components/tier4_localization_component.launch.xml
+#### topic name fix in awsim_sensor_kit
+RUN sed -i "42s/top\/pointcloud/top\/pointcloud_raw/; \
+            43s/left\/pointcloud/left\/pointcloud_raw/; \
+            44s/right\/pointcloud/right\/pointcloud_raw/" \
+src/sensor_kit/external/awsim_sensor_kit_launch/awsim_sensor_kit_launch/launch/pointcloud_preprocessor.launch.py
 
 ## Clean up unnecessary files
 RUN rm -rf \
